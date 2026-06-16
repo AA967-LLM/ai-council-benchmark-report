@@ -397,7 +397,7 @@
                 { label: 'Gemma-4-12B', data: gemma, borderColor: '#34a853', backgroundColor: 'rgba(52,168,83,0.08)', borderWidth: 2 }
             ]
         },
-        options: { animation: false, scales: { r: { min: 0, max: 100, ticks: { display: false }, grid: { color: 'rgba(255,255,255,0.05)' } } } }
+        options: { scales: { r: { min: 0, max: 100, ticks: { display: false }, grid: { color: 'rgba(255,255,255,0.05)' } } } }
     });
 
     new Chart(document.getElementById('radar2'), {
@@ -410,10 +410,18 @@
                 { label: 'VibeThinker-3B', data: vibe, borderColor: '#9c27b0', backgroundColor: 'rgba(156,39,176,0.08)', borderWidth: 2 }
             ]
         },
-        options: { animation: false, scales: { r: { min: 0, max: 100, ticks: { display: false }, grid: { color: 'rgba(255,255,255,0.05)' } } } }
+        options: { scales: { r: { min: 0, max: 100, ticks: { display: false }, grid: { color: 'rgba(255,255,255,0.05)' } } } }
     });
 
-    function animateCounter(id, target) { document.getElementById(id).textContent = target; } el.textContent = current; }, 30);
+    function animateCounter(id, target) { 
+        let current = 0; 
+        let step = Math.max(1, Math.floor(target / 30)); 
+        let el = document.getElementById(id);
+        let timer = setInterval(() => { 
+            current += step; 
+            if(current >= target) { current = target; clearInterval(timer); } 
+            el.textContent = current; 
+        }, 30); 
     }
     animateCounter('kpi-overall', 94);
     animateCounter('kpi-reasoning', 97);
